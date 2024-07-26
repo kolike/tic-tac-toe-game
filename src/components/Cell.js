@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useEffect } from "react";
 
 const CellField = styled.div`
   width: 75px;
@@ -14,6 +13,10 @@ const CellField = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  &: hover {
+    background-color: ${(props) =>
+      props.$isGameStart ? "#5a1e76;" : "#43115b"};
+  }
 `;
 
 const CellText = styled.div`
@@ -21,30 +24,27 @@ const CellText = styled.div`
 `;
 
 const Cell = (props) => {
-  const { value, id, setData, playersTurn, setPlayersTurn } = props;
-
-  useEffect(() => {
-    if (playersTurn === "X") {
-      setPlayersTurn((state) => (state = "O"));
-    } else {
-      setPlayersTurn((state) => (state = "X"));
-    }
-  }, [value]);
+  const { value, id, setData, playersTurn, setPlayersTurn, isGameStart } =
+    props;
 
   const changeValue = () => {
-    setData((state) => {
-      const arr = [...state];
-      if (playersTurn === "O") {
-        arr[id] = "X";
-      } else if (playersTurn === "X") {
-        arr[id] = "O";
-      }
-      return arr;
-    });
+    if (isGameStart) {
+      setData((state) => {
+        const result = [...state];
+        if (playersTurn === "X" && value !== "X" && value !== "O") {
+          result[id] = "X";
+          setPlayersTurn("O");
+        } else if (playersTurn === "O" && value !== "X" && value !== "O") {
+          result[id] = "O";
+          setPlayersTurn("X");
+        }
+        return result;
+      });
+    }
   };
 
   return (
-    <CellField onClick={changeValue}>
+    <CellField onClick={changeValue} $isGameStart={isGameStart}>
       <CellText $inputColor={value}>{`${value}`}</CellText>
     </CellField>
   );

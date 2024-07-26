@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import GameContainer from "./GameContainer";
 import TitleComponent from "./TitleComponent";
@@ -20,11 +21,19 @@ const Container = styled.div`
 `;
 
 function App() {
+  const [data, setData] = useState(["", "", "", "", "", "", "", "", ""]);
+  const [playersTurn, setPlayersTurn] = useState("X");
+
   return (
     <Wrapper>
       <Container>
         <TitleComponent />
-        <GameContainer />
+        <GameContainer
+          data={data}
+          setData={setData}
+          playersTurn={playersTurn}
+          setPlayersTurn={setPlayersTurn}
+        />
       </Container>
     </Wrapper>
   );

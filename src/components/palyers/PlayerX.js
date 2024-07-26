@@ -21,11 +21,12 @@ const ScoreValue = styled.div`
   font-size: 30px;
 `;
 
-const PlayerX = () => {
+const PlayerX = (props) => {
+  const playerXScore = props.playerXScore;
   return (
     <PlayerXField>
       <div> Player X</div>
-      <ScoreValue> 0</ScoreValue>
+      <ScoreValue> {playerXScore}</ScoreValue>
     </PlayerXField>
   );
 };

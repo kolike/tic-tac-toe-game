@@ -20,11 +20,12 @@ const ScoreValue = styled.div`
   font-size: 30px;
 `;
 
-const PlayerO = () => {
+const PlayerO = (props) => {
+  const playerOScore = props.playerOScore;
   return (
     <PlayerOField>
       <div> Player O</div>
-      <ScoreValue> 0</ScoreValue>
+      <ScoreValue> {playerOScore}</ScoreValue>
     </PlayerOField>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cell from "./Cell";
 import styled from "styled-components";
 
@@ -10,10 +10,15 @@ const GameFieldStyle = styled.div`
   gap: 15px;
 `;
 
-const GameField = () => {
-  const [data, setData] = useState(["", "", "", "", "", "", "", "", ""]);
-
-  const [playersTurn, setPlayersTurn] = useState("X");
+const GameField = (props) => {
+  const {
+    data,
+    setData,
+    playersTurn,
+    setPlayersTurn,
+    isGameStart,
+    setIsGameStart,
+  } = props;
 
   const elements = data.map((item, i) => {
     return (
@@ -21,13 +26,14 @@ const GameField = () => {
         key={i}
         id={i}
         value={item}
-        data={data}
         setData={setData}
         playersTurn={playersTurn}
         setPlayersTurn={setPlayersTurn}
+        isGameStart={isGameStart}
       />
     );
   });
+
   return <GameFieldStyle>{elements}</GameFieldStyle>;
 };
 

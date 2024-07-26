@@ -21,11 +21,12 @@ const ScoreValue = styled.div`
   font-size: 30px;
 `;
 
-const Draw = () => {
+const Draw = (props) => {
+  const drawScore = props.drawScore;
   return (
     <DrawField>
       <div> Draw</div>
-      <ScoreValue> 0</ScoreValue>
+      <ScoreValue> {drawScore}</ScoreValue>
     </DrawField>
   );
 };

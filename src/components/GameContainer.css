@@ -1,0 +1,19 @@
+@keyframes colorChangeBlink {
+
+    0%,
+    100% {
+        background-color: #ffffff;
+        transition: background-color 1s linear;
+    }
+
+    5% {
+
+        background-color: #48D2FEff;
+        transition: background-color 1s linear;
+    }
+}
+
+.animated {
+    animation: colorChangeBlink 0.5s;
+    transition: background-color 1s ease-in-out;
+}

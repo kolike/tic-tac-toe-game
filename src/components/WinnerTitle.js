@@ -20,7 +20,10 @@ const WinnerTitleField = styled.div`
 const WinnerTitle = ({ playersTurn }) => {
   return (
     <WinnerTitleField>
-      Game Over! Player {playersTurn === "X" ? "O" : "X"} Wins!
+      Game Over!
+      {playersTurn === "Draw"
+        ? " It's Draw!"
+        : ` Player ${playersTurn === "X" ? "O" : "X"} Wins!`}
     </WinnerTitleField>
   );
 };

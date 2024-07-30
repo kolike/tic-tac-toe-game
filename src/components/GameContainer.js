@@ -1,5 +1,5 @@
-import { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import { useState, useEffect } from "react";
+import styled from "styled-components";
 import ScoreBar from "./ScoreBar";
 import GameField from "./GameField";
 import TurnTitle from "./TurnTitle";
@@ -45,6 +45,34 @@ const GameContainer = (props) => {
   const [isGameStart, setIsGameStart] = useState(false);
   const [isFirstStart, setIsFirstStart] = useState(true);
   const [animationStyle, setAnimationStyle] = useState("");
+  const [playerXScore, setPlayerXScore] = useState(0);
+  const [playerOScore, setPlayerOScore] = useState(0);
+  const [drawScore, setDrawScore] = useState(0);
+
+  useEffect(() => {
+    if (
+      (data[0] !== "" && data[0] === data[3] && data[3] === data[6]) ||
+      (data[1] !== "" && data[1] === data[4] && data[4] === data[7]) ||
+      (data[2] !== "" && data[2] === data[5] && data[5] === data[8]) ||
+      (data[0] !== "" && data[0] === data[1] && data[1] === data[2]) ||
+      (data[3] !== "" && data[3] === data[4] && data[4] === data[5]) ||
+      (data[6] !== "" && data[6] === data[7] && data[7] === data[8]) ||
+      (data[0] !== "" && data[0] === data[4] && data[4] === data[8]) ||
+      (data[6] !== "" && data[6] === data[4] && data[4] === data[2])
+    ) {
+      setIsGameStart(false);
+
+      if (playersTurn === "X") {
+        setPlayerOScore((state) => (state = state + 1));
+      } else {
+        setPlayerXScore((state) => (state = state + 1));
+      }
+    } else if (data.every((elem) => elem !== "")) {
+      setIsGameStart(false);
+      setDrawScore((state) => (state = state + 1));
+      setPlayersTurn("Draw");
+    }
+  }, [data]);
 
   const animationBlink = () => {
     setAnimationStyle("animated");
@@ -65,11 +93,9 @@ const GameContainer = (props) => {
   return (
     <Field onClick={animationBlink}>
       <ScoreBar
-        data={data}
-        setPlayersTurn={setPlayersTurn}
-        playersTurn={playersTurn}
-        isGameStart={isGameStart}
-        setIsGameStart={setIsGameStart}
+        playerXScore={playerXScore}
+        playerOScore={playerOScore}
+        drawScore={drawScore}
       />
       <GameField
         data={data}

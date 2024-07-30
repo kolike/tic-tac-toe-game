@@ -17,7 +17,16 @@ const Container = styled.div`
   height: 100%;
   background-color: #5a1e76;
   border-radius: 75px;
-  gap: 250px;
+
+  @media (max-width: 720px) {
+    gap: 0;
+  }
+  @media (min-width: 720px) and (max-width: 1280px) {
+    gap: 100px;
+  }
+  @media (min-width: 1280px) {
+    gap: 300px;
+  }
 `;
 
 function App() {
